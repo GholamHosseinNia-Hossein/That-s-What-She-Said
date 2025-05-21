@@ -2,24 +2,26 @@ from video import Video
 from prompt import Prompt
 from video_handler import VideoHandler
 from subtitle_search import SubtitleSearch
+from settings import Settings
 
 
 def main():
+    settings = Settings()
+    settings.load_settings()
     prompt = Prompt()
+    prompt.command_line_args()
+
     while True:
-        prompt.print_help()
-        args = get_args()
-        do_as_told(args)
-        if args["quit"] or args["start"]:
+        if args["end"]:
             break
+        args = get_args()
+        settings.write_settings(args)
+        prompt.print_help()
     
     if fit_for_output(args):
         output(args)
-        report(args)
-    else:
-        report(args)
-
-    finish()
+    report(args)
+    finalize(settings, args)
 
 def get_args() -> dict:
     # The user
@@ -50,7 +52,7 @@ def fit_for_output(args: dict) -> bool:
     # Check if the args are not {}
     pass
 
-def finish():
+def finalize():
     # Finish the program
     # Close all the files
     # Close all the connections
@@ -64,3 +66,14 @@ def finish():
     # Close all the events
     # Close all the timers
     pass
+
+def exit_if_unable(args: dict):
+    # Check if the args are able to be used
+    # Check if the args are able to be used in the program
+    # Check if the args are able to be used in the function
+    # Check if the args are able to be used in the class
+    pass
+
+
+if __name__ == "main":
+    main()
