@@ -1,4 +1,3 @@
-import sys
 import argparse
 
 class Prompt:
@@ -28,39 +27,45 @@ class Prompt:
     # Public
     # --------------------------------
 
-    def parse_args() -> dict:
-        # Receives arguments from the command line & Parses them
-        # Updates the __args variable
-        # Returns the recieved data
-        pass
-
+    def parse_args(self):
+        return self.__args.parse_args()
+    
     def print_help(self) -> None:
         self.__args.print_help()
 
-    def command_line_args(self) -> None:
-        # User may call it once, at the beginning of the program
-        pass
-
     def get_args(self) -> dict:
-        # Returns all the entered arguments as a dictionary
-        pass
+        return {"use_regex": self.__args.use_regex,
+                "lang": self.__args.lang,
+                "directory": self.__args.directory,
+                "phrase": self.__args.phrase,
+                "start": self.__args.start,
+                "end": self.__args.end,
+                "save_at": self.__args.save_at,
+                "file_name": self.__args.file_name}
 
     ## Getters
     ## --------------------------------
 
     @property
-    def save_path(self) -> str:
-        pass
+    def save_at(self) -> str: self.__args.save_at
     
     @property
-    def video_directory(self) -> str:
-        pass
+    def directory(self) -> str: self.__args.directory
 
     @property
-    def sub_collection_directory(self) -> str:
-        pass
+    def use_regex(self) -> bool: self.__args.use_regex
 
     @property
-    def instance_number(self) -> int:
-        pass
-    
+    def start(self) -> bool: self.__args.start
+
+    @property
+    def end(self) -> bool: self.__args.end
+
+    @property
+    def lang(self) -> str: self.__args.lang
+
+    @property
+    def phrase(self) -> str: self.__args.phrase
+
+    @property
+    def file_name(self) -> str: self.__args.file_name
