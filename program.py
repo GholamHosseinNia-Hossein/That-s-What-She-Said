@@ -10,15 +10,15 @@ def main():
     prompt = set_prompt()
 
     while True:
-        args = prompt.get_args()
-        if args["end"]:
+        entered_data = prompt.parse_args()
+        if entered_data["value"]:
             break
-        settings.write_settings(args)
+        settings.write_settings(entered_data)
     
-    if fit_for_output(args):
-        output(args)
-    report(args)
-    finalize(settings, args)
+    if fit_for_output(prompt):
+        output(prompt)
+    report(prompt)
+    finalize(settings, prompt)
 
 
 def set_settigns() -> Settings:
@@ -33,10 +33,6 @@ def set_prompt() -> Prompt:
     prompt.command_line_args()
     prompt.print_help()
 
-
-def report(videos: list[Video], args: Prompt):
-    pass
-
 def output(args: Prompt):
     sub_handler = Sub_Handler()
     phrase_instances = sub_handler.search()
@@ -46,13 +42,9 @@ def output(args: Prompt):
         save_as(phrase_instances)
 
 def save_as(phrase_instance: Phrase_Instance):
-    # You've got the video address
     # You've got the subtitle address
     # You've got the output address
-    # Come on! 
-    pass
-
-def get_videos():
+    # You may have the video address, if not, save it as 'srt'
     pass
 
 def fit_for_output(args: dict) -> bool:
