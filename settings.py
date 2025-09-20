@@ -5,6 +5,7 @@ class Settings:
     _settings = {}
     _FILE_PATH = None
     _FILE_NAME = "settings.json"
+    REQUIRED_KEYS = {"random", "lang", "save_as", "use_regex", "recursive_search", "directory"}
 
     def __init__(self):
         raise RuntimeError("'Settings' shall not be instantiated")
@@ -19,14 +20,18 @@ class Settings:
 
     @classmethod
     def __load_settings(cls):
-        if os.path.exists(cls._FILE_PATH):
             try:
                 with open(cls._FILE_PATH, 'r') as f:
                     cls._settings = json.load(f)
+                    if cls.__verify_settings(cls._settings) is not True:
+                        cls.reset_to_default()
             except Exception as e:
                 print(e)
-        else:
-            cls.reset_to_default()
+                cls.reset_to_default()
+
+    @classmethod
+    def __verify_settings(cls, settings: dict) -> bool:
+        return set(settings.keys) == set(cls.REQUIRED_KEYS)
 
     @classmethod
     def __rewrite_to_file(cls):
@@ -42,8 +47,20 @@ class Settings:
             "random": True,
             "lang": "en",
             "save_as": os.path.join(os.environ["USERPROFILE"], "Desktop"),
-            "regex": False
+            "use_regex": False,
+            "recursive_search": True,
+            "directory": None # Where to search
         }
+        cls.__rewrite_to_file()
+
+    @classmethod
+    def get_settings(cls) -> dict: cls._settings
+
+    @classmethod
+    def set_settings(cls, settings: dict):
+        if cls.__verify_settings(settings) is not True:
+            raise ValueError()
+        cls._settings = settings
         cls.__rewrite_to_file()
 
 Settings.__class_initialize()
