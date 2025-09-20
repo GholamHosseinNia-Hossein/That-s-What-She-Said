@@ -3,7 +3,7 @@ import argparse
 class Prompt:
     
     def __init__(self):
-        self.__args = self.__init_args()
+        self._args = self.__init_args()
         pass
 
     # Private
@@ -16,6 +16,7 @@ class Prompt:
         parser.add_argument("-s", "--start", action="store_true", type= bool, help="Start the clipping procedure")
         parser.add_argument("-e", "--end", action="store_true", type= bool, help="End the program")
         parser.add_argument("--use_regex", action="store_true", type= bool, help="Shall we use 'regex' to search for the desired phrase?")
+        parser.add_argument("--random", type=bool, action="store_true" ,help="Shall I select a random phrase instance?")
         parser.add_argument("--directory", help="Where I searech for subtitles")
         parser.add_argument("--save_at", help="Only the saving directory. Do not include file name!")
         parser.add_argument("--file_name", help="Only the saved file's name. Do not include directory")
@@ -28,44 +29,48 @@ class Prompt:
     # --------------------------------
 
     def parse_args(self):
-        return self.__args.parse_args()
+        return self._args.parse_args()
     
     def print_help(self) -> None:
-        self.__args.print_help()
+        self._args.print_help()
 
     def get_args(self) -> dict:
-        return {"use_regex": self.__args.use_regex,
-                "lang": self.__args.lang,
-                "directory": self.__args.directory,
-                "phrase": self.__args.phrase,
-                "start": self.__args.start,
-                "end": self.__args.end,
-                "save_at": self.__args.save_at,
-                "file_name": self.__args.file_name}
+        return {"use_regex": self._args.use_regex,
+                "lang": self._args.lang,
+                "directory": self._args.directory,
+                "phrase": self._args.phrase,
+                "start": self._args.start,
+                "end": self._args.end,
+                "save_at": self._args.save_at,
+                "file_name": self._args.file_name,
+                "random": self._args.random}
 
     ## Getters
     ## --------------------------------
 
     @property
-    def save_at(self) -> str: self.__args.save_at
+    def save_at(self) -> str: self._args.save_at
     
     @property
-    def directory(self) -> str: self.__args.directory
+    def directory(self) -> str: self._args.directory
 
     @property
-    def use_regex(self) -> bool: self.__args.use_regex
+    def use_regex(self) -> bool: self._args.use_regex
 
     @property
-    def start(self) -> bool: self.__args.start
+    def start(self) -> bool: self._args.start
 
     @property
-    def end(self) -> bool: self.__args.end
+    def end(self) -> bool: self._args.end
 
     @property
-    def lang(self) -> str: self.__args.lang
+    def lang(self) -> str: self._args.lang
 
     @property
-    def phrase(self) -> str: self.__args.phrase
+    def phrase(self) -> str: self._args.phrase
 
     @property
-    def file_name(self) -> str: self.__args.file_name
+    def file_name(self) -> str: self._args.file_name
+
+    @property
+    def select_random(self) -> bool: self._args.random
