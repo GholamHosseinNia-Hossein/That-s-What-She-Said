@@ -16,8 +16,9 @@ class Prompt:
         parser.add_argument("-s", "--start", action="store_true", type= bool, help="Start the clipping procedure")
         parser.add_argument("-e", "--end", action="store_true", type= bool, help="End the program")
         parser.add_argument("--use_regex", action="store_true", type= bool, help="Shall we use 'regex' to search for the desired phrase?")
-        parser.add_argument("--random", type=bool, action="store_true" ,help="Shall I select a random phrase instance?")
+        parser.add_argument("--random", type=bool, action="store_true", help="Shall I select a random phrase instance?")
         parser.add_argument("--directory", help="Where I searech for subtitles")
+        parser.add_argument("--recursive_search", type=bool, action="store_true", help="Do I search your directory recursively?")
         parser.add_argument("--save_at", help="Only the saving directory. Do not include file name!")
         parser.add_argument("--file_name", help="Only the saved file's name. Do not include directory")
         parser.add_argument("--lang", choices=["en", "fa", "fr"], help= "Choose a language: en, fr, fa")
@@ -38,6 +39,7 @@ class Prompt:
         return {"use_regex": self._args.use_regex,
                 "lang": self._args.lang,
                 "directory": self._args.directory,
+                "recursive_search": self._args.recursive_search,
                 "phrase": self._args.phrase,
                 "start": self._args.start,
                 "end": self._args.end,
@@ -53,6 +55,9 @@ class Prompt:
     
     @property
     def directory(self) -> str: self._args.directory
+
+    @property
+    def recursive_search(self) -> bool: self._args.recursive_search
 
     @property
     def use_regex(self) -> bool: self._args.use_regex
