@@ -5,7 +5,7 @@ class Settings:
     _settings = {}
     _FILE_PATH = None
     _FILE_NAME = "settings.json"
-    REQUIRED_KEYS = {"random", "lang", "save_as", "use_regex", "recursive_search", "directory"}
+    REQUIRED_KEYS = {"random", "lang", "save_as", "use_regex", "recursive_search", "directory", "margin_in_milliseconds"}
 
     def __init__(self):
         raise RuntimeError("'Settings' shall not be instantiated")
@@ -49,7 +49,8 @@ class Settings:
             "save_as": os.path.join(os.environ["USERPROFILE"], "Desktop"),
             "use_regex": False,
             "recursive_search": True,
-            "directory": None # Where to search
+            "directory": None, # Where to search
+            "margin_in_milliseconds": 2000
         }
         cls.__rewrite_to_file()
 

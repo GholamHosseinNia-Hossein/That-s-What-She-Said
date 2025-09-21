@@ -23,6 +23,7 @@ class Prompt:
         parser.add_argument("--file_name", help="Only the saved file's name. Do not include directory")
         parser.add_argument("--lang", choices=["en", "fa", "fr"], help= "Choose a language: en, fr, fa")
         parser.add_argument("--phrase", help="What to look for")
+        parser.add_argument("--margin_in_milliseconds", type=int, help="How much to cut out of the video, before and after")
 
         return parser
 
@@ -45,7 +46,8 @@ class Prompt:
                 "end": self._args.end,
                 "save_at": self._args.save_at,
                 "file_name": self._args.file_name,
-                "random": self._args.random}
+                "random": self._args.random,
+                "margin_in_milliseconds": self._args.margin_in_milliseconds}
 
     ## Getters
     ## --------------------------------
@@ -79,3 +81,6 @@ class Prompt:
 
     @property
     def select_random(self) -> bool: self._args.random
+
+    @property
+    def margin_in_milliseconds(self) -> int: self._args.margin_in_milliseconds
