@@ -26,6 +26,8 @@ class Phrase_Instance:
     @end_time.setter
     def end_time(self, time: time): self._end_time = time
 
+    # For mkv files with several subtitles.
+    # This property is tentative and may be subject to change.
     @property
     def sub_number(self) -> int: self._sub_number
 
