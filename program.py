@@ -1,7 +1,6 @@
-from video import Video
+from phrase_instance import Phrase_Instance
 from prompt import Prompt
-from video_handler import VideoHandler
-from sub_searcher import SubSearcher
+from sub_handler import Sub_Handler
 from settings import Settings
 
 
@@ -23,7 +22,6 @@ def main():
 
 def set_settigns() -> Settings:
     settings = Settings()
-    settings.load_settings()
     if settings.is_empty():
         settings.fill_necessary_settings()
     return settings
