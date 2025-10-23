@@ -4,7 +4,6 @@ import os
 import re
 import pysubs2
 
-## Define local variables that contain 'regex', 'search_videos', 'directory', and 'phrase'
 class Sub_Handler:
     
     _phrase: str = None
@@ -64,10 +63,19 @@ class Sub_Handler:
     @classmethod
     def search_in_text(cls, file: str, regex: bool, format: str) -> list[Phrase_Instance]:
         sub = pysubs2.load(file, encoding="utf-8")
+        phrases: list[Phrase_Instance] = []
         if regex:
-            phrases = [line for line in sub if re.search(cls._phrase, line.text, re.IGNORECASE)]
+            for line in sub:
+                if re.search(cls._phrase, line.text, re.IGNORECASE):
+                    instance = Phrase_Instance(file, line.start, line.end, line.text)
+                    # instance.sub_number
+                    phrases.append(instance)
         else:
-            phrases = [line for line in sub if line.text.find(cls._phrase)]
+            for line in sub:
+                if line.text.find(cls._phrase):
+                    instance = Phrase_Instance(file, line.start, line.end, line.text)
+                    # instance.sub_number
+                    phrases.append(instance)
         return phrases
     
 
