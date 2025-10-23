@@ -2,11 +2,12 @@ from datetime import time
 
 class Phrase_Instance:
     
-    def __init__(self):
-        self._file_path: str = None
-        self._start_time: time = None
-        self._end_time: time = None
-        self._sub_number: int = -1 # Only if we're dealing with a subtitle attached to a video
+    def __init__(self, path=None, start=None, end=None, phrase=None, sub_number=-1):
+        self._file_path: str = path
+        self._start_time: time = start
+        self._end_time: time = end
+        self._sub_number: int = sub_number # Only if we're dealing with a subtitle attached to a video
+        self._phrase: str = phrase
 
     @property
     def file_path(self) -> str: self._file_path
@@ -25,6 +26,12 @@ class Phrase_Instance:
 
     @end_time.setter
     def end_time(self, time: time): self._end_time = time
+
+    @property
+    def phrase(self) -> str: self._phrase
+    
+    @phrase.setter
+    def phrase(self, phrase: str): self._phrase = phrase
 
     # For mkv files with several subtitles.
     # This property is tentative and may be subject to change.
