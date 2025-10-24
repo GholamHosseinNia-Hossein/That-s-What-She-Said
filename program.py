@@ -5,26 +5,17 @@ from settings import Settings
 
 
 def main():
-    settings = set_settigns()
     prompt = set_prompt()
 
     while True:
         entered_data = prompt.parse_args()
-        if entered_data["value"]:
+        if entered_data["exit"]:
             break
-        settings.write_settings(entered_data)
+        Settings.write_settings(entered_data)
     
     if fit_for_output(prompt):
         output(prompt)
-    report(prompt)
-    finalize(settings, prompt)
-
-
-def set_settigns() -> Settings:
-    settings = Settings()
-    if settings.is_empty():
-        settings.fill_necessary_settings()
-    return settings
+    finalize(Settings, prompt)
 
 def set_prompt() -> Prompt:
     prompt = Prompt()
@@ -33,7 +24,8 @@ def set_prompt() -> Prompt:
 
 def output(args: Prompt):
     sub_handler = Sub_Handler()
-    phrase_instances = sub_handler.search()
+    # As of now, the application cannot search the subtitles embedded inside a video
+    phrase_instances = sub_handler.find_instances(args.phrase, args.directory, args.recursive_search, False, args.use_regex)
     if phrase_instances is None:
         args.add("Not Found")
     else:
@@ -55,7 +47,7 @@ def fit_for_output(args: dict) -> bool:
     # Check if the args are not ""
     # Check if the args are not []
     # Check if the args are not {}
-    pass
+    return True
 
 def finalize():
     # Finish the program
