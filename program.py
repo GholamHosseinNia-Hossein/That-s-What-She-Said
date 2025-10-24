@@ -29,7 +29,12 @@ def output(args: Prompt):
     if phrase_instances is None:
         args.add("Not Found")
     else:
-        save_as(phrase_instances)
+        # Print the output for now
+        # save_as(phrase_instances)
+        for instance in phrase_instances:
+            print(f"FILE: {instance.file_path}, \t {instance.start_time}-{instance.end_time}")
+            print(f"PHRASE: {instance.phrase}")
+            print(f"-------------------------")
 
 def save_as(phrase_instance: Phrase_Instance):
     # You've got the subtitle address
