@@ -11,7 +11,7 @@ def main():
         entered_data = prompt.parse_args()
         if entered_data["exit"]:
             break
-        Settings.write_settings(entered_data)
+        Settings.set_settings(entered_data)
     
     if fit_for_output(prompt):
         output(prompt)
@@ -19,8 +19,12 @@ def main():
 
 def set_prompt() -> Prompt:
     prompt = Prompt()
-    prompt.command_line_args()
     prompt.print_help()
+    
+    # fill prompt from settings
+    for key, value in Settings.get_settings():
+        prompt._args[key] = value
+
 
 def output(args: Prompt):
     sub_handler = Sub_Handler()

@@ -5,7 +5,7 @@ class Settings:
     _settings = {}
     _FILE_PATH = None
     _FILE_NAME = "settings.json"
-    REQUIRED_KEYS = ["random", "lang", "save_as", "use_regex", "recursive_search", "directory", "margin_in_milliseconds"]
+    REQUIRED_KEYS = ["random", "lang", "save_at", "use_regex", "recursive_search", "directory", "margin_in_milliseconds"]
 
     def __init__(self):
         raise RuntimeError("'Settings' shall not be instantiated")
