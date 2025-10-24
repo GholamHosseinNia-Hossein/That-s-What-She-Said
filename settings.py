@@ -5,7 +5,7 @@ class Settings:
     _settings = {}
     _FILE_PATH = None
     _FILE_NAME = "settings.json"
-    REQUIRED_KEYS = {"random", "lang", "save_as", "use_regex", "recursive_search", "directory", "margin_in_milliseconds"}
+    REQUIRED_KEYS = ["random", "lang", "save_as", "use_regex", "recursive_search", "directory", "margin_in_milliseconds"]
 
     def __init__(self):
         raise RuntimeError("'Settings' shall not be instantiated")
@@ -31,7 +31,7 @@ class Settings:
 
     @classmethod
     def __verify_settings(cls, settings: dict) -> bool:
-        return set(settings.keys) == set(cls.REQUIRED_KEYS)
+        return set(settings.keys).issubset(set(cls.REQUIRED_KEYS))
 
     @classmethod
     def __rewrite_to_file(cls):
@@ -61,7 +61,8 @@ class Settings:
     def set_settings(cls, settings: dict):
         if cls.__verify_settings(settings) is not True:
             raise ValueError()
-        cls._settings = settings
+        for key, value in settings:
+            cls._settings[key] = value
         cls.__rewrite_to_file()
 
 Settings.__class_initialize()
