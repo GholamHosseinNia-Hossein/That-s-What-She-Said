@@ -3,7 +3,8 @@ import argparse
 class Prompt:
     
     def __init__(self):
-        self.__args = self.__init_args()
+        self.__parser = self.__init_args()
+        self.__args = None
 
     # Private
     # --------------------------------
@@ -31,14 +32,17 @@ class Prompt:
 
     def parse_args(self, args: list=None):
         if args is None:
-            return self.__args.parse_args()
+            self.__args = self.__parser.parse_args()
         else:
-            return self.__args.parse_args(args)
+            self.__args = self.__parser.parse_args(args)
+        return self.__args
     
     def print_help(self) -> None:
         self.__args.print_help()
 
     def get_args(self) -> dict:
+        if self.__args is None:
+            raise RuntimeError("Arguments not parsed yet.")
         return {"use_regex": self.__args.use_regex,
                 "lang": self.__args.lang,
                 "directory": self.__args.directory,
@@ -52,7 +56,7 @@ class Prompt:
                 "margin_in_milliseconds": self.__args.margin_in_milliseconds}
     
     @classmethod
-    def dict_to_list(self, dictionary: dict) -> list[str]:
+    def dict_to_list(cls, dictionary: dict) -> list[str]:
         args_list: list[str] = []
         for key, value in dictionary.items():
              if isinstance(value, bool):
