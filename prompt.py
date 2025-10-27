@@ -53,7 +53,7 @@ class Prompt:
 
     def __dict_to_str(self, dictionary: dict) -> list[str]:
         args_list: list[str] = []
-        for key, value in dictionary:
+        for key, value in dictionary.items():
              if isinstance(value, bool):
                 if value:
                     args_list.append(f"--{key}")

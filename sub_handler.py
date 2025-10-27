@@ -5,14 +5,13 @@ import re
 import pysubs2
 
 class Sub_Handler:
-    
-    _phrase: str = None
-    _directory: str = None
-    _regex: bool = True
-    _search_videos: bool = False
 
-    def __class_initialize():
-        pass
+    @classmethod
+    def _class_initialize(cls):
+        _phrase: str = None
+        _directory: str = None
+        _regex: bool = True
+        _search_videos: bool = False
 
     @classmethod
     def find_instances(cls, phrase: str, directory: str, search_recursive: bool = True, search_videos: bool = True, regex: bool = True) -> list[Phrase_Instance]:
@@ -79,4 +78,4 @@ class Sub_Handler:
         return phrases
     
 
-Sub_Handler.__class_initialize()
+Sub_Handler._class_initialize()

@@ -9,7 +9,7 @@ def main():
 
     while True:
         entered_data = prompt.parse_args()
-        if entered_data["exit"]:
+        if entered_data.end:
             break
         Settings.set_settings(entered_data)
     
@@ -20,11 +20,8 @@ def main():
 def set_prompt() -> Prompt:
     prompt = Prompt()
     prompt.print_help()
-    
-    # fill prompt from settings
-    for key, value in Settings.get_settings():
-        prompt._args[key] = value
-
+    prompt.parse_args(Settings.get_settings())
+    return prompt
 
 def output(args: Prompt):
     sub_handler = Sub_Handler()
@@ -38,7 +35,7 @@ def output(args: Prompt):
         for instance in phrase_instances:
             print(f"FILE: {instance.file_path}, \t {instance.start_time}-{instance.end_time}")
             print(f"PHRASE: {instance.phrase}")
-            print(f"-------------------------")
+            print("-------------------------")
 
 def save_as(phrase_instance: Phrase_Instance):
     # You've got the subtitle address
@@ -81,5 +78,5 @@ def exit_if_unable(args: dict):
     pass
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     main()

@@ -14,24 +14,29 @@ class Settings:
     # -------------------------------
 
     @classmethod
-    def __class_initialize(cls):
+    def _class_initialize(cls):
         cls._FILE_PATH = os.path.join(os.getcwd(), cls._FILE_NAME)
+        if not os.path.exists(cls._FILE_PATH):
+            with open(cls._FILE_PATH, "w") as f:
+                pass
         cls.__load_settings()
 
     @classmethod
     def __load_settings(cls):
             try:
                 with open(cls._FILE_PATH, 'r') as f:
-                    cls._settings = json.load(f)
-                    if cls.__verify_settings(cls._settings) is not True:
+                    data = json.load(f)
+                    if cls.__verify_settings(data) is not True:
                         cls.reset_to_default()
+                    else:
+                        cls._settings = data
             except Exception as e:
                 print(e)
                 cls.reset_to_default()
 
     @classmethod
     def __verify_settings(cls, settings: dict) -> bool:
-        return set(settings.keys).issubset(set(cls.REQUIRED_KEYS))
+        return set(settings.keys()).issubset(set(cls.REQUIRED_KEYS))
 
     @classmethod
     def __rewrite_to_file(cls):
@@ -46,7 +51,7 @@ class Settings:
         cls._settings = {
             "random": True,
             "lang": "en",
-            "save_as": os.path.join(os.environ["USERPROFILE"], "Desktop"),
+            "save_at": os.path.join(os.environ["USERPROFILE"], "Desktop"),
             "use_regex": False,
             "recursive_search": True,
             "directory": None, # Where to search
@@ -55,14 +60,14 @@ class Settings:
         cls.__rewrite_to_file()
 
     @classmethod
-    def get_settings(cls) -> dict: cls._settings
+    def get_settings(cls) -> dict: return cls._settings
 
     @classmethod
     def set_settings(cls, settings: dict):
         if cls.__verify_settings(settings) is not True:
             raise ValueError()
-        for key, value in settings:
+        for key, value in settings.items():
             cls._settings[key] = value
         cls.__rewrite_to_file()
 
-Settings.__class_initialize()
+Settings._class_initialize()
