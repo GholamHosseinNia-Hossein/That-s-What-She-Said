@@ -8,10 +8,10 @@ def main():
     prompt = set_prompt()
 
     while True:
-        entered_data = prompt.parse_args()
+        entered_data = prompt.parse_args(input().split())
         if entered_data.end:
             break
-        Settings.set_settings(entered_data)
+        Settings.set_settings(prompt.get_args())
     
     if fit_for_output(prompt):
         output(prompt)
@@ -20,7 +20,7 @@ def main():
 def set_prompt() -> Prompt:
     prompt = Prompt()
     prompt.print_help()
-    prompt.parse_args(Settings.get_settings())
+    prompt.parse_args(Prompt.dict_to_list(Settings.get_settings()))
     return prompt
 
 def output(args: Prompt):

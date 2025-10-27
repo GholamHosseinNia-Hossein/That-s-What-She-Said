@@ -3,7 +3,7 @@ import argparse
 class Prompt:
     
     def __init__(self):
-        self._args = self.__init_args()
+        self.__args = self.__init_args()
 
     # Private
     # --------------------------------
@@ -29,29 +29,30 @@ class Prompt:
     # Public
     # --------------------------------
 
-    def parse_args(self, args: dict=None):
+    def parse_args(self, args: list=None):
         if args is None:
-            return self._args.parse_args()
+            return self.__args.parse_args()
         else:
-            return self._args.parse_args(self.__dict_to_str(args))
+            return self.__args.parse_args(args)
     
     def print_help(self) -> None:
-        self._args.print_help()
+        self.__args.print_help()
 
     def get_args(self) -> dict:
-        return {"use_regex": self._args.use_regex,
-                "lang": self._args.lang,
-                "directory": self._args.directory,
-                "recursive_search": self._args.recursive_search,
-                "phrase": self._args.phrase,
-                "start": self._args.start,
-                "end": self._args.end,
-                "save_at": self._args.save_at,
-                "file_name": self._args.file_name,
-                "random": self._args.random,
-                "margin_in_milliseconds": self._args.margin_in_milliseconds}
-
-    def __dict_to_str(self, dictionary: dict) -> list[str]:
+        return {"use_regex": self.__args.use_regex,
+                "lang": self.__args.lang,
+                "directory": self.__args.directory,
+                "recursive_search": self.__args.recursive_search,
+                "phrase": self.__args.phrase,
+                "start": self.__args.start,
+                "end": self.__args.end,
+                "save_at": self.__args.save_at,
+                "file_name": self.__args.file_name,
+                "random": self.__args.random,
+                "margin_in_milliseconds": self.__args.margin_in_milliseconds}
+    
+    @classmethod
+    def dict_to_list(self, dictionary: dict) -> list[str]:
         args_list: list[str] = []
         for key, value in dictionary.items():
              if isinstance(value, bool):
@@ -66,34 +67,34 @@ class Prompt:
     ## --------------------------------
 
     @property
-    def save_at(self) -> str: self._args.save_at
+    def save_at(self) -> str: self.__args.save_at
     
     @property
-    def directory(self) -> str: self._args.directory
+    def directory(self) -> str: self.__args.directory
 
     @property
-    def recursive_search(self) -> bool: self._args.recursive_search
+    def recursive_search(self) -> bool: self.__args.recursive_search
 
     @property
-    def use_regex(self) -> bool: self._args.use_regex
+    def use_regex(self) -> bool: self.__args.use_regex
 
     @property
-    def start(self) -> bool: self._args.start
+    def start(self) -> bool: self.__args.start
 
     @property
-    def end(self) -> bool: self._args.end
+    def end(self) -> bool: self.__args.end
 
     @property
-    def lang(self) -> str: self._args.lang
+    def lang(self) -> str: self.__args.lang
 
     @property
-    def phrase(self) -> str: self._args.phrase
+    def phrase(self) -> str: self.__args.phrase
 
     @property
-    def file_name(self) -> str: self._args.file_name
+    def file_name(self) -> str: self.__args.file_name
 
     @property
-    def select_random(self) -> bool: self._args.random
+    def select_random(self) -> bool: self.__args.random
 
     @property
-    def margin_in_milliseconds(self) -> int: self._args.margin_in_milliseconds
+    def margin_in_milliseconds(self) -> int: self.__args.margin_in_milliseconds
