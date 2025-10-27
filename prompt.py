@@ -71,34 +71,34 @@ class Prompt:
     ## --------------------------------
 
     @property
-    def save_at(self) -> str: self.__args.save_at
+    def save_at(self) -> str: return self.__args.save_at
     
     @property
-    def directory(self) -> str: self.__args.directory
+    def directory(self) -> str: return self.__args.directory
 
     @property
-    def recursive_search(self) -> bool: self.__args.recursive_search
+    def recursive_search(self) -> bool: return self.__args.recursive_search
 
     @property
-    def use_regex(self) -> bool: self.__args.use_regex
+    def use_regex(self) -> bool: return self.__args.use_regex
 
     @property
-    def start(self) -> bool: self.__args.start
+    def start(self) -> bool: return self.__args.start
 
     @property
-    def end(self) -> bool: self.__args.end
+    def end(self) -> bool: return self.__args.end
 
     @property
-    def lang(self) -> str: self.__args.lang
+    def lang(self) -> str: return self.__args.lang
 
     @property
-    def phrase(self) -> str: self.__args.phrase
+    def phrase(self) -> str: return self.__args.phrase
 
     @property
-    def file_name(self) -> str: self.__args.file_name
+    def file_name(self) -> str: return self.__args.file_name
 
     @property
-    def select_random(self) -> bool: self.__args.random
+    def select_random(self) -> bool: return self.__args.random
 
     @property
-    def margin_in_milliseconds(self) -> int: self.__args.margin_in_milliseconds
+    def margin_in_milliseconds(self) -> int: return self.__args.margin_in_milliseconds
