@@ -4,7 +4,6 @@ class Prompt:
     
     def __init__(self):
         self._args = self.__init_args()
-        pass
 
     # Private
     # --------------------------------
@@ -13,12 +12,12 @@ class Prompt:
         # Initializes the argument parser
         # Sets the description and usage of the program
         parser = argparse.ArgumentParser(description="Prompt for the user")
-        parser.add_argument("-s", "--start", action="store_true", type= bool, help="Start the clipping procedure")
-        parser.add_argument("-e", "--end", action="store_true", type= bool, help="End the program")
-        parser.add_argument("--use_regex", action="store_true", type= bool, help="Shall we use 'regex' to search for the desired phrase?")
-        parser.add_argument("--random", type=bool, action="store_true", help="Shall I select a random phrase instance?")
+        parser.add_argument("-s", "--start", action="store_true", help="Start the clipping procedure")
+        parser.add_argument("-e", "--end", action="store_true", help="End the program")
+        parser.add_argument("--use_regex", action="store_true", help="Shall we use 'regex' to search for the desired phrase?")
+        parser.add_argument("--random", action="store_true", help="Shall I select a random phrase instance?")
         parser.add_argument("--directory", help="Where I searech for subtitles")
-        parser.add_argument("--recursive_search", type=bool, action="store_true", help="Do I search your directory recursively?")
+        parser.add_argument("--recursive_search", action="store_true", help="Do I search your directory recursively?")
         parser.add_argument("--save_at", help="Only the saving directory. Do not include file name!")
         parser.add_argument("--file_name", help="Only the saved file's name. Do not include directory")
         parser.add_argument("--lang", choices=["en", "fa", "fr"], help= "Choose a language: en, fr, fa")
@@ -30,8 +29,11 @@ class Prompt:
     # Public
     # --------------------------------
 
-    def parse_args(self):
-        return self._args.parse_args()
+    def parse_args(self, args: dict=None):
+        if args is None:
+            return self._args.parse_args()
+        else:
+            return self._args.parse_args(self.__dict_to_str(args))
     
     def print_help(self) -> None:
         self._args.print_help()
@@ -48,6 +50,17 @@ class Prompt:
                 "file_name": self._args.file_name,
                 "random": self._args.random,
                 "margin_in_milliseconds": self._args.margin_in_milliseconds}
+
+    def __dict_to_str(self, dictionary: dict) -> list[str]:
+        args_list: list[str] = []
+        for key, value in dictionary:
+             if isinstance(value, bool):
+                if value:
+                    args_list.append(f"--{key}")
+             else:
+                args_list.extend([f"--{key}", str(value)])
+        return args_list
+
 
     ## Getters
     ## --------------------------------
