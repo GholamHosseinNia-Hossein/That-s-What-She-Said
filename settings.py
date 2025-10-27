@@ -26,7 +26,7 @@ class Settings:
             try:
                 with open(cls._FILE_PATH, 'r') as f:
                     data = json.load(f)
-                    if cls.__verify_settings(data) is not True:
+                    if cls.__is_subset(data) is not True:
                         cls.reset_to_default()
                     else:
                         cls._settings = data
@@ -35,7 +35,7 @@ class Settings:
                 cls.reset_to_default()
 
     @classmethod
-    def __verify_settings(cls, settings: dict) -> bool:
+    def __is_subset(cls, settings: dict) -> bool:
         return set(settings.keys()).issubset(set(cls.REQUIRED_KEYS))
 
     @classmethod
@@ -64,10 +64,18 @@ class Settings:
 
     @classmethod
     def set_settings(cls, settings: dict):
-        if cls.__verify_settings(settings) is not True:
+        filtered_setttings = cls.__filter_usable_rows(settings)
+        if cls.__is_subset(filtered_setttings) is not True:
             raise ValueError()
-        for key, value in settings.items():
+        for key, value in filtered_setttings.items():
             cls._settings[key] = value
         cls.__rewrite_to_file()
+
+    def __filter_usable_rows(cls, rows: dict):
+        filtered_rows: dict = {}
+        for key, value in rows.items():
+            if key in cls.REQUIRED_KEYS:
+                filtered_rows[key] = value
+        return filtered_rows
 
 Settings._class_initialize()
