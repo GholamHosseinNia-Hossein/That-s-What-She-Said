@@ -32,9 +32,9 @@ class Prompt:
 
     def parse_args(self, args: list=None):
         if args is None:
-            self.__args = self.__parser.parse_args()
+            self.__args = self.__parser.parse_args(namespace=self.__args)
         else:
-            self.__args = self.__parser.parse_args(args)
+            self.__args = self.__parser.parse_args(args, namespace=self.__args)
         return self.__args
     
     def print_help(self) -> None:
