@@ -38,7 +38,7 @@ class Prompt:
         return self.__args
     
     def print_help(self) -> None:
-        self.__args.print_help()
+        self.__parser.print_help()
 
     def get_args(self) -> dict:
         if self.__args is None:

@@ -8,10 +8,14 @@ def main():
     prompt = set_prompt()
 
     while True:
-        entered_data = prompt.parse_args(input().split())
-        if entered_data.end:
-            break
-        Settings.set_settings(prompt.get_args())
+        try:
+            entered_data = prompt.parse_args(input().split())
+            if entered_data.end:
+                break
+            Settings.set_settings(prompt.get_args())
+        except Exception as e:
+            print ("Argument parsing failed!", e)
+
     
     if fit_for_output(prompt):
         output(prompt)

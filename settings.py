@@ -71,6 +71,7 @@ class Settings:
             cls._settings[key] = value
         cls.__rewrite_to_file()
 
+    @classmethod
     def __filter_usable_rows(cls, rows: dict):
         filtered_rows: dict = {}
         for key, value in rows.items():
