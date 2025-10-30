@@ -2,14 +2,14 @@ from phrase_instance import Phrase_Instance
 from prompt import Prompt
 from sub_handler import Sub_Handler
 from settings import Settings
-
+import shlex
 
 def main():
     prompt = set_prompt()
 
     while True:
         try:
-            entered_data = prompt.parse_args(input().split())
+            entered_data = prompt.parse_args(shlex.split(input("> ")))
             if entered_data.end:
                 break
             Settings.set_settings(prompt.get_args())
@@ -19,7 +19,6 @@ def main():
     
     if fit_for_output(prompt):
         output(prompt)
-    finalize(Settings, prompt)
 
 def set_prompt() -> Prompt:
     prompt = Prompt()
@@ -58,21 +57,6 @@ def fit_for_output(args: dict) -> bool:
     # Check if the args are not []
     # Check if the args are not {}
     return True
-
-def finalize():
-    # Finish the program
-    # Close all the files
-    # Close all the connections
-    # Close all the threads
-    # Close all the processes
-    # Close all the sockets
-    # Close all the pipes
-    # Close all the queues
-    # Close all the locks
-    # Close all the semaphores
-    # Close all the events
-    # Close all the timers
-    pass
 
 def exit_if_unable(args: dict):
     # Check if the args are able to be used
