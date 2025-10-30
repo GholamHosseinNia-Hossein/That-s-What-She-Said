@@ -41,9 +41,11 @@ class Sub_Handler:
     def _recursive_search(cls, directory):
         instances: list[Phrase_Instance] = cls._normal_search(directory)
         for item in os.listdir(cls._directory):
-            if os.path.isdir(os.path.isdir(item)):
-                recursive_instances = cls._recursive_search(item) 
-                if recursive_instances is not None: instances.append(recursive_instances)
+            sub_directory = os.path.join(directory, item)
+            if os.path.isdir(sub_directory):
+                recursive_found_instances = cls._recursive_search(sub_directory)
+                if recursive_found_instances is not None:
+                    instances.extend(recursive_found_instances)
         return instances
 
     @classmethod
@@ -51,7 +53,7 @@ class Sub_Handler:
         for item in os.listdir(directory):
             path = os.path.join(directory, item)
             if os.path.isfile(path) and cls.is_subtitle(path):
-                return cls.search_in_text(item, cls._regex, path[:-3])
+                return cls.search_in_text(path, cls._regex, path[:-3])
         return []
 
     @classmethod                
@@ -74,7 +76,7 @@ class Sub_Handler:
                     phrases.append(instance)
         else:
             for line in sub:
-                if line.text.find(cls._phrase):
+                if line.text.lower().find(cls._phrase):
                     instance = Phrase_Instance(file, line.start, line.end, line.text)
                     # instance.sub_number
                     phrases.append(instance)

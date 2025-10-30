@@ -30,7 +30,7 @@ def output(args: Prompt):
     sub_handler = Sub_Handler()
     # As of now, the application cannot search the subtitles embedded inside a video
     phrase_instances = sub_handler.find_instances(args.phrase, args.directory, args.recursive_search, False, args.use_regex)
-    if phrase_instances is None:
+    if len(phrase_instances) < 1:
         args.add("Not Found")
     else:
         # Print the output for now
@@ -40,6 +40,7 @@ def output(args: Prompt):
             print(f"PHRASE: {instance.phrase}")
             print("-------------------------")
 
+# Not yet developed. Waiting for the CS50 AI course...
 def save_as(phrase_instance: Phrase_Instance):
     # You've got the subtitle address
     # You've got the output address

@@ -10,25 +10,25 @@ class Phrase_Instance:
         self._phrase: str = phrase
 
     @property
-    def file_path(self) -> str: self._file_path
+    def file_path(self) -> str: return self._file_path
 
     @file_path.setter
     def file_path(self, path: str): self._file_path = path
     
     @property
-    def start_time(self) -> time: self._start_time
+    def start_time(self) -> time: return self._start_time
 
     @start_time.setter
     def start_time(self, time: time): self._start_time = time
 
     @property
-    def end_time(self) -> time: self._end_time
+    def end_time(self) -> time: return self._end_time
 
     @end_time.setter
     def end_time(self, time: time): self._end_time = time
 
     @property
-    def phrase(self) -> str: self._phrase
+    def phrase(self) -> str: return self._phrase
     
     @phrase.setter
     def phrase(self, phrase: str): self._phrase = phrase
@@ -36,7 +36,7 @@ class Phrase_Instance:
     # For mkv files with several subtitles.
     # This property is tentative and may be subject to change.
     @property
-    def sub_number(self) -> int: self._sub_number
+    def sub_number(self) -> int: return self._sub_number
 
     @sub_number.setter
     def sub_number(self, number: int): self._sub_number = number
