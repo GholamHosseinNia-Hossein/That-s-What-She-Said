@@ -36,8 +36,9 @@ def output(args: Prompt):
         # Print the output for now
         # save_as(phrase_instances)
         for instance in phrase_instances:
-            print(f"FILE: {instance.file_path}, \t {instance.start_time}-{instance.end_time}")
-            print(f"PHRASE: {instance.phrase}")
+            print(f"FILE:]\t{instance.file_path}")
+            print(f"TIME:\t{instance.start_time}-{instance.end_time}")
+            print(f"PHRASE:\t{instance.phrase}")
             print("-------------------------")
 
 # Not yet developed. Waiting for the CS50 AI course...

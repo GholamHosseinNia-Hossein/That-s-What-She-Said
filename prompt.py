@@ -48,7 +48,6 @@ class Prompt:
                 "recursive_search": self.__args.recursive_search,
                 "phrase": self.__args.phrase,
                 "start": self.__args.start,
-                "end": self.__args.end,
                 "save_at": self.__args.save_at,
                 "file_name": self.__args.file_name,
                 "random": self.__args.random,
@@ -58,11 +57,7 @@ class Prompt:
     def dict_to_list(cls, dictionary: dict) -> list[str]:
         args_list: list[str] = []
         for key, value in dictionary.items():
-             if isinstance(value, bool):
-                if value:
-                    args_list.append(f"--{key}")
-             else:
-                args_list.extend([f"--{key}", str(value)])
+            args_list.extend([f"--{key}", str(value)])
         return args_list
 
 

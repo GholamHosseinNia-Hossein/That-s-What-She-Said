@@ -50,11 +50,12 @@ class Sub_Handler:
 
     @classmethod
     def _normal_search(cls, directory) -> list[Phrase_Instance]:
+        phrase_instances: list[Phrase_Instance] = []
         for item in os.listdir(directory):
             path = os.path.join(directory, item)
             if os.path.isfile(path) and cls.is_subtitle(path):
-                return cls.search_in_text(path, cls._regex, path[:-3])
-        return []
+                phrase_instances.extend(cls.search_in_text(path, cls._regex, path[:-3]))
+        return phrase_instances
 
     @classmethod                
     def is_subtitle(cls, path: str) -> bool:

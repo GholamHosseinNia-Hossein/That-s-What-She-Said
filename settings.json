@@ -1,5 +1,5 @@
 {
-    "random": false,
+    "random": true,
     "lang": "en",
     "save_at": "None",
     "use_regex": true,
