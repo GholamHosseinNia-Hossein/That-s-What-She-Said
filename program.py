@@ -12,6 +12,8 @@ def main():
             entered_data = prompt.parse_args(shlex.split(input("> ")))
             if entered_data.start:
                 break
+            elif entered_data.end:
+                exit()
             Settings.set_settings(prompt.get_args())
         except Exception as e:
             print ("Argument parsing failed!", e)

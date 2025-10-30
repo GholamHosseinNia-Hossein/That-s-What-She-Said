@@ -14,6 +14,7 @@ class Prompt:
         # Sets the description and usage of the program
         parser = argparse.ArgumentParser(description="Prompt for the user")
         parser.add_argument("-s", "--start", action="store_true", help="Start the clipping procedure")
+        parser.add_argument("-e", "--end", action="store_true", help="Ignore the changes and end the program")
         parser.add_argument("--use_regex", type=bool, help="Shall we use 'regex' to search for the desired phrase?")
         parser.add_argument("--random", type=bool, help="Shall I select a random phrase instance?")
         parser.add_argument("--directory", help="Where I searech for subtitles")
@@ -48,6 +49,7 @@ class Prompt:
                 "recursive_search": self.__args.recursive_search,
                 "phrase": self.__args.phrase,
                 "start": self.__args.start,
+                "end": self.__args.end,
                 "save_at": self.__args.save_at,
                 "file_name": self.__args.file_name,
                 "random": self.__args.random,
