@@ -10,7 +10,7 @@ def main():
     while True:
         try:
             entered_data = prompt.parse_args(shlex.split(input("> ")))
-            if entered_data.end:
+            if entered_data.start:
                 break
             Settings.set_settings(prompt.get_args())
         except Exception as e:
