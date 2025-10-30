@@ -8,8 +8,8 @@ class Sub_Handler:
 
     @classmethod
     def _class_initialize(cls):
-        _phrase: str = None
-        _directory: str = None
+        _phrase: str = ""
+        _directory: str = ""
         _regex: bool = True
         _search_videos: bool = False
 
@@ -18,7 +18,10 @@ class Sub_Handler:
         if not os.path.exists(directory) or os.path.isfile(directory):
             raise ValueError("Wrong directory path!")
         
-        cls._regex = regex, cls._phrase = phrase, cls._directory = directory, cls._search_videos = search_videos
+        cls._regex = regex
+        cls._phrase = phrase
+        cls._directory = directory
+        cls._search_videos = search_videos
 
         if search_recursive:
             return cls._recursive_search(directory)
@@ -45,11 +48,11 @@ class Sub_Handler:
 
     @classmethod
     def _normal_search(cls, directory) -> list[Phrase_Instance]:
-        instances : list[Phrase_Instance] = None
         for item in os.listdir(directory):
             path = os.path.join(directory, item)
             if os.path.isfile(path) and cls.is_subtitle(path):
                 return cls.search_in_text(item, cls._regex, path[:-3])
+        return []
 
     @classmethod                
     def is_subtitle(cls, path: str) -> bool:
